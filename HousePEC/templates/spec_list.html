@@ -1,0 +1,498 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  <li class="breadcrumb-item active">住宅名「{{ house.name }}」の登録設備仕様リスト</li>
+{% if calcs.all.count %}
+  <li class="breadcrumb-item active">{{ specs.all.count }}仕様が登録されています。その内、{{ calcs.all.count }}仕様の一次エネルギー消費量が未計算です。</li>
+{% else %}
+  <li class="breadcrumb-item active">{{ specs.all.count }}仕様が登録されています。すべての仕様の一次エネルギー消費量が計算済です。</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<p><a href="{% url 'house_list' house.builder.pk %}">登録住宅リスト一覧に戻る</a></p>
+
+<div class="accordion" id="accordionHouse">
+    <div class="card mb-2">
+        <div class="card-header" id="headingHouse">
+            <div class="mb-0">
+                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseHouse" aria-expanded="false" aria-controls="collapseHouse">
+                    住宅「{{ house.name }}」の登録内容
+                </button>
+            </div>
+        </div>
+
+        <div id="collapseHouse" class="collapse" aria-labelledby="headingHouse" data-parent="#accordionHouse">
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>UA値[W/m2・K]</th>
+                            <th colspan="2">ηH値[-]</th>
+                            <th>外皮面積[m2]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ house.ua_value }}</td>
+                            <td>暖房期：{{ house.winter_ha_value }}</td>
+                            <td>冷房期：{{ house.summer_ha_value }}</td>
+                            <td>{{ house.total_envelope_area }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="3">床面積[m2]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>延床：{{ house.total_area }}</td>
+                            <td>主居室：{{ house.ldk_area }}</td>
+                            <td>他居室：{{ house.oth_area }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>建設地域</th>
+                            <th>日射区分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ house.get_region_display }}</td>
+                            <td>{{ house.get_annual_solar_level_display }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>住宅の登録日時</th>
+                            <th>住宅の更新日時</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ house.create_date }}</td>
+                            <td>{{ house.update_date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>設備仕様登録数</th>
+                            <th>設備仕様の最終更新日時</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ house.get_registered_specs }}</td>
+                            <td>{{ house.get_last_updated.update_date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="card mb-2">
+                    <div class="card-header">
+                        詳細設定項目
+                        <small>
+                            *詳細設定を行っていない場合、「利用しない」が初期値として設定されています。変更する場合は、
+                            <a href="{% url 'house_update_detail' builder.pk house.pk %} ">こちら</a>をクリックしてください。
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>蓄熱利用</th>
+                                    <th>床下経由換気</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ house.get_heat_storage_display }}</td>
+                                    {% if house.under_floor_ventilation == 'AlwaysOn' %}
+                                        <td>{{ house.get_under_floor_ventilation_display }}（面積割合：{{ house.under_floor_ventilation_area_rate }}%）</td>
+                                    {% else %}
+                                        <td>{{ house.get_under_floor_ventilation_display }}</td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="2">通風利用</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>主居室：{{ house.get_ldk_natural_wind_display }}</td>
+                                    <td>他居室：{{ house.get_oth_natural_wind_display }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+  <div class="mb-4">
+    <a href="{% url 'spec_new' builder.pk house.pk %}" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="新しい設備仕様の登録ページにジャンプします。">
+      新規設備仕様の追加
+    </a>
+  </div>
+
+{% if specs.all.count %}
+  <div class="mb-4">
+    <a href="{% url 'spec_calc' builder.pk house.pk %}" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="未計算の仕様が多数ある場合、計算に時間を要します。APIの混雑状況によっては、しばらく応答がない場合もあります。">
+      一次エネルギー消費量のグラフ一覧を表示（未計算の仕様がある場合、計算を開始します）
+    </a>
+  </div>
+
+    <p>
+    <small>
+        <a href="https://www.kenken.go.jp/becc/API_house.html#energy">
+            本サービスは、住宅・住戸の省エネルギー性能の判定プログラムAPI機能を使用していますが、
+            本サービスの内容は国立研究開発法人建築研究所又は国土技術政策総合研究所によって保証されたものではありません。
+        </a>
+        したがって、本サービスによる計算結果は、各性能・設備仕様と一次エネルギー消費量の関係を比較するなどの目安としてください。
+        申請資料等に記載する正式な一次エネルギー消費量の値としては、
+        <a href="http://house.app.lowenergy.jp/">国立研究開発法人建築研究所のエネルギー消費性能計算プログラム</a>
+        による計算結果を用いてください。
+    </small>
+    </p>
+
+    {% for i in specs %}
+    <div class="card mb-2">
+        <div class="card-header alert alert-primary" role="alert">
+            <div class="row">
+                <div class="col-6">
+                    No.{{ forloop.counter }}
+                    ：更新日時：{{ i.update_date }}
+                </div>
+                <div class="col-6 text-right">
+                    <a href="{% url 'spec_update' i.builder.pk i.house.pk i.pk %}" class="btn btn-success btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="UA値や設備機器等、各仕様の変更ページにジャンプします。">変更</a>
+                    <a href="{% url 'spec_copy' i.builder.pk i.house.pk i.pk %}" class="btn btn-warning btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="各仕様の複製ページにジャンプします。複製された仕様は、リストの最後に追加されます。">複製</a>
+                    <a href="{% url 'spec_confirm_delete' i.builder.pk i.house.pk i.pk %}" class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="登録された仕様の削除「確認」ページにジャンプします。">削除</a>
+                </div>
+            </div>
+        </div>
+      <div class="card-body">
+          {% if i.get_pecbyapi_res.ErrMessage == '' %}
+            <div class="row mb-2">
+                <div class="col-3">
+                    <table class="table table-sm">
+                        <tbody class="text-right">
+                            <tr>
+                                <th scope="row">基準値：</th>
+                                <td>{{ i.get_pecbyapi_res.subTotal.1 }}GJ</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">設計値：</th>
+                                <td>{{ i.get_pecbyapi_res.subTotal.0 }}GJ</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">基準達成率：</th>
+                                <td>{{ i.get_pecbyapi_res.achievement.0 }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-8">
+                    <img src="data:image/png;base64, {{ i.get_pecbyapi_fig }}" alt="計算結果がありません" />
+                </div>
+            </div>
+          {% else %}
+          <div class="row mb-2">
+              {{ i.get_pecbyapi_res.ErrMessage }}
+          </div>
+          {% endif %}
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>暖房設備</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if i.heating_system == 'AllSpaceHeating' %}
+                    <td colspan="2">
+                        <p>{{ i.get_heating_system_display }}</p>
+                        {% for ii in i.get_ldk_heating_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% else %}
+                    <td>
+                        <p>主居室：{{ i.get_ldk_heating_type_display }}</p>
+                        {% for ii in i.get_ldk_heating_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <p>他居室：{{ i.get_oth_heating_type_display }}</p>
+                        {% for ii in i.get_oth_heating_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>冷房設備</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if i.cooling_system == 'AllSpaceCooling' %}
+                    <td colspan="2">
+                        <p>{{ i.get_cooling_system_display }}</p>
+                        {% for ii in i.get_ldk_cooling_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% else %}
+                    <td>
+                        <p>主居室：{{ i.get_ldk_cooling_type_display }}</p>
+                        {% for ii in i.get_ldk_cooling_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <p>他居室：{{ i.get_oth_cooling_type_display }}</p>
+                        {% for ii in i.get_oth_cooling_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+      
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>機械換気設備</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>{{ i.get_ventilation_type_display }}</p>
+                        {% for ii in i.get_ventilation_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>給湯設備</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>{{ i.get_bathroom_display }}：{{ i.get_bath_function_display }}</p>
+                        {% for ii in i.get_hotwater_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>照明設備</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>主居室：{{ i.get_ldk_lighting_display }}</p>
+                        {% for ii in i.get_ldk_lighting_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <p>他居室：{{ i.get_oth_lighting_display }}</p>
+                        {% for ii in i.get_oth_lighting_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <p>非居室：{{ i.get_nonldk_lighting_display }}</p>
+                        {% for ii in i.get_nonldk_lighting_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>太陽光発電</th>
+                    {% if i.photovoltaic == 'Panel2' %}
+                    <th></th>
+                    {% elif i.photovoltaic == 'Panel3' %}
+                    <th></th>
+                    <th></th>
+                    {% elif i.photovoltaic == 'Panel4' %}
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {% for ii in i.get_photovoltaic_base_context %}
+                        <p>{{ ii }}</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    {% if i.photovoltaic == 'Panel1' %}
+                    <td>
+                        <ul>第1面</ul>
+                        {% for ii in i.get_photovoltaic_1_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if i.photovoltaic == 'Panel2' %}
+                    <td>
+                        <ul>第1面</ul>
+                        {% for ii in i.get_photovoltaic_1_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>第2面</ul>
+                        {% for ii in i.get_photovoltaic_2_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if i.photovoltaic == 'Panel3' %}
+                    <td>
+                        <ul>第1面</ul>
+                        {% for ii in i.get_photovoltaic_1_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>第2面</ul>
+                        {% for ii in i.get_photovoltaic_2_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>第3面</ul>
+                        {% for ii in i.get_photovoltaic_3_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
+                    {% if i.photovoltaic == 'Panel4' %}
+                    <td>
+                        <ul>第1面</ul>
+                        {% for ii in i.get_photovoltaic_1_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>第2面</ul>
+                        {% for ii in i.get_photovoltaic_2_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>第3面</ul>
+                        {% for ii in i.get_photovoltaic_3_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>第4面</ul>
+                        {% for ii in i.get_photovoltaic_4_context %}
+                        <ul>{{ ii }}</ul>
+                        {% endfor %}
+                    </td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+      
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>コージェネレーション設備</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {% for ii in i.get_cogene_context %}
+                        <p>{{ ii }}</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      
+      </div>
+    </div>
+    {% endfor %}
+
+{% else %}
+
+    <p>登録されている仕様はありません。</p>
+
+{% endif %}
+
+
+{% endblock %}
+
+

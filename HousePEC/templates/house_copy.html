@@ -1,0 +1,40 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  <li class="breadcrumb-item active">「{{ house.name }}」の複製</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'house_list' house.builder.pk %}">住宅リスト一覧に戻る</a>
+</p>
+
+{% if messages %}
+<p>入力値に以下の不具合があります。修正して、ページ下部の「複製」をクリックしてください。</p>
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+<p>変更する項目を入力して、ページ下部の「複製」をクリックすると、住宅リスト一覧の最後に複製が追加されます。</p>
+{% endif %}
+
+
+  <form method="post">
+    {% csrf_token %}
+      {% include 'includes/form.html' %}
+      
+    <button type="submit" class="btn btn-success">複製</button>
+  </form>
+
+{% endblock %}
+
+

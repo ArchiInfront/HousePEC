@@ -1,0 +1,220 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅の冷房設備</div>
+    <div class="card-body">
+        <div class="form-group">
+            {% for error in form.cooling_system.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.cooling_system class=form.cooling_system|input_class %}
+            <small class="form-text text-muted">
+            {{ form.cooling_system.help_text|safe }}
+            </small>
+        </div>
+
+        <div class="card mb-2" id="id_card_ElectricHeatPumpCentralCooling" style="display:none;">
+            <div class="card-header">ダクト式セントラル空調機（住戸全体を冷房する）</div>
+            <div class="card-body">
+
+                {#ダクト式セントラル空調機：ElectricHeatPumpCentralCooling#}
+                <div id="id_subcard_ElectricHeatPumpCentralCooling" style="display:block;">
+                    <div class="form-group">
+                        {{ form.cooling_rated_input }}
+                        {{ form.cooling_rated_input.label_tag }}
+                        {% for error in form.cooling_rated_input.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        <small class="form-text text-muted">
+                        {{ form.cooling_rated_input.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralCooling_rated_capacity" style="display:none;">
+                        {{ form.cooling_rated_capacity.label_tag }}
+                        {% for error in form.cooling_rated_capacity.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.cooling_rated_capacity class=form.cooling_rated_capacity|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.cooling_rated_capacity.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralCooling_rated_power" style="display:none;">
+                        {{ form.cooling_rated_power.label_tag }}
+                        {% for error in form.cooling_rated_power.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.cooling_rated_power class=form.cooling_rated_power|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.cooling_rated_power.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralCooling_power_correction" style="display:block;">
+                        {{ form.cooling_power_correction.label_tag }}
+                        {% for error in form.cooling_power_correction.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.cooling_power_correction class=form.cooling_power_correction|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.cooling_power_correction.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralCooling_coefficient" style="display:block;">
+                        {{ form.cooling_coefficient.label_tag }}
+                        {% for error in form.cooling_coefficient.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.cooling_coefficient class=form.cooling_coefficient|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.cooling_coefficient.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_ldk_cooling" style="display:block;">
+            <div class="card-header">主居室の冷房</div>
+            <div class="card-body">
+
+                {#主居室の冷房#}
+                <div class="form-group">
+                    {% for error in form.ldk_cooling_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ldk_cooling_type class=form.ldk_cooling_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.ldk_cooling_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {#主居室：RoomAirConditioningCooling#}
+                <div id="id_subcard_ldk_RoomAirConditioningCooling" style="display:block;">
+                    <div class="form-group">
+                        {{ form.ldk_ac_cooling_efficiency.label_tag }}
+                        {% for error in form.ldk_ac_cooling_efficiency.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_cooling_efficiency class=form.ldk_ac_cooling_efficiency|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_cooling_efficiency.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.ldk_ac_cooling_compressor.label_tag }}
+                        {% for error in form.ldk_ac_cooling_compressor.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_cooling_compressor class=form.ldk_ac_cooling_compressor|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_cooling_compressor.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#主居室：OtherCoolingDevice#}
+                <div id="id_subcard_ldk_OtherCoolingDevice" style="display:none;">
+                    <div class="form-group">
+                        {{ form.ldk_other_cooling_device_name.label_tag }}
+                        {% for error in form.ldk_other_cooling_device_name.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_other_cooling_device_name class=form.ldk_other_cooling_device_name|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_other_cooling_device_name.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_oth_cooling" style="display:block;">
+            <div class="card-header">他居室の冷房</div>
+            <div class="card-body">
+
+                {#他居室の冷房#}
+                <div class="form-group">
+                    {% for error in form.oth_cooling_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.oth_cooling_type class=form.oth_cooling_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.oth_cooling_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {#他居室：RoomAirConditioningCooling#}
+                <div id="id_subcard_oth_RoomAirConditioningCooling" style="display:block;">
+                    <div class="form-group">
+                        {{ form.oth_ac_cooling_efficiency.label_tag }}
+                        {% for error in form.oth_ac_cooling_efficiency.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_cooling_efficiency class=form.oth_ac_cooling_efficiency|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_cooling_efficiency.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.oth_ac_cooling_compressor.label_tag }}
+                        {% for error in form.oth_ac_cooling_compressor.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_cooling_compressor class=form.oth_ac_cooling_compressor|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_cooling_compressor.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#他居室：OtherCoolingDevice#}
+                <div id="id_subcard_oth_OtherCoolingDevice" style="display:none;">
+                    <div class="form-group">
+                        {{ form.oth_other_cooling_device_name.label_tag }}
+                        {% for error in form.oth_other_cooling_device_name.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_other_cooling_device_name class=form.oth_other_cooling_device_name|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_other_cooling_device_name.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

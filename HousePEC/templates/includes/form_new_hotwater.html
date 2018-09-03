@@ -1,0 +1,545 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅の給湯設備</div>
+    <div class="card-body">
+
+        {# 給湯蛇口・浴室の有無 #}
+        <div class="form-group">
+            {% for error in form.bathroom.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.bathroom class=form.bathroom|input_class %}
+            <small class="form-text text-muted">
+            {{ form.bathroom.help_text|safe }}
+            </small>
+        </div>
+
+        {# ふろ機能の種類 #}
+        <div class="form-group" id="id_form_bath_function" style="display:block;">
+            {% for error in form.bath_function.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.bath_function class=form.bath_function|input_class %}
+            <small class="form-text text-muted">
+            {{ form.bath_function.help_text|safe }}
+            </small>
+        </div>
+
+        <div class="card mb-2" id="id_card_water_heater" style="display:block;">
+            <div class="card-header">給湯熱源</div>
+            <div class="card-body">
+
+                {# 給湯熱源（給湯専用型） #}
+                <div class="form-group" id="id_form_water_heater_type" style="display:block;">
+                    {{ form.water_heater_type.label_tag }}
+                    {% for error in form.water_heater_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_type class=form.water_heater_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 給湯熱源（給湯・温水暖房一体型） #}
+                <div class="form-group" id="id_form_integrated_water_heater_type" style="display:none;">
+                    {{ form.integrated_water_heater_type.label_tag }}
+                    {% for error in form.integrated_water_heater_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.integrated_water_heater_type class=form.integrated_water_heater_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.integrated_water_heater_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 給湯機効率種類（ガス・石油の場合） #}
+                <div class="form-group" id="id_form_gasoil_water_heater_efficiency_type" style="display:none;">
+                    {{ form.gasoil_water_heater_efficiency_type.label_tag }}
+                    {% for error in form.gasoil_water_heater_efficiency_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_efficiency_type class=form.gasoil_water_heater_efficiency_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_efficiency_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス従来型給湯機のモード熱効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_GasClassic_Mode" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasClassic_Mode.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_GasClassic_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_GasClassic_Mode class=form.gasoil_water_heater_jis_efficiency_GasClassic_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasClassic_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス従来型給湯機のエネルギー消費効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_GasClassic_Other" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasClassic_Other.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_GasClassic_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_GasClassic_Other class=form.gasoil_water_heater_jis_efficiency_GasClassic_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasClassic_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス潜熱回収型給湯機のモード熱効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Mode" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Mode.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Mode class=form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス潜熱回収型給湯機のエネルギー消費効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Other" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Other.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Other class=form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_GasLatentHeatRecovery_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 石油従来型給湯機のモード熱効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_OilClassic_Mode" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilClassic_Mode.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_OilClassic_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_OilClassic_Mode class=form.gasoil_water_heater_jis_efficiency_OilClassic_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilClassic_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 石油従来型給湯機の熱効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_OilClassic_Other" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilClassic_Other.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_OilClassic_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_OilClassic_Other class=form.gasoil_water_heater_jis_efficiency_OilClassic_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilClassic_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 石油潜熱回収型給湯機のモード熱効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Mode" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Mode.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Mode class=form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 石油潜熱回収型給湯機の熱効率 #}
+                <div class="form-group" id="id_form_gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Other" style="display:none;">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Other.label_tag }}
+                    {% for error in form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Other class=form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_water_heater_jis_efficiency_OilLatentHeatRecovery_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス従来型給湯温水暖房機（給湯・温水暖房一体型）暖房部のモード熱効率[%] #}
+                <div class="form-group" id="id_form_gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Mode" style="display:none;">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Mode.label_tag }}
+                    {% for error in form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Mode class=form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス従来型給湯温水暖房機（給湯・温水暖房一体型）暖房部のエネルギー消費効率[%] #}
+                <div class="form-group" id="id_form_gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Other" style="display:none;">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Other.label_tag }}
+                    {% for error in form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Other class=form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasClassic_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス潜熱回収型給湯温水暖房機（給湯・温水暖房一体型）暖房部のモード熱効率[%] #}
+                <div class="form-group" id="id_form_gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Mode" style="display:none;">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Mode.label_tag }}
+                    {% for error in form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Mode class=form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ガス潜熱回収型給湯温水暖房機（給湯・温水暖房一体型）暖房部のエネルギー消費効率[%] #}
+                <div class="form-group" id="id_form_gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Other" style="display:none;">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Other.label_tag }}
+                    {% for error in form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Other class=form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedGasLatentHeatRecovery_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 石油従来型給湯温水暖房機（給湯・温水暖房一体型）暖房部のモード熱効率[%] #}
+                <div class="form-group" id="id_form_gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Mode" style="display:none;">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Mode.label_tag }}
+                    {% for error in form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Mode.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Mode class=form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Mode|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Mode.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 石油従来型給湯温水暖房機（給湯・温水暖房一体型）暖房部のエネルギー消費効率[%] #}
+                <div class="form-group" id="id_form_gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Other" style="display:none;">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Other.label_tag }}
+                    {% for error in form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Other class=form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.gasoil_heating_water_heater_jis_efficiency_IntegratedOil_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 給湯機効率種類（ヒートポンプの場合） #}
+                <div class="form-group" id="id_form_heatpump_water_heater_efficiency_type" style="display:block;">
+                    {{ form.heatpump_water_heater_efficiency_type.label_tag }}
+                    {% for error in form.heatpump_water_heater_efficiency_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.heatpump_water_heater_efficiency_type class=form.heatpump_water_heater_efficiency_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.heatpump_water_heater_efficiency_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {# M1スタンダードに基づくJIS相当効率 #}
+                <div class="form-group" id="id_form_heatpump_water_heater_jis_efficiency_M1SEJISEfficiency" style="display:none;">
+                    {{ form.heatpump_water_heater_jis_efficiency_M1SEJISEfficiency.label_tag }}
+                    {% for error in form.heatpump_water_heater_jis_efficiency_M1SEJISEfficiency.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.heatpump_water_heater_jis_efficiency_M1SEJISEfficiency class=form.heatpump_water_heater_jis_efficiency_M1SEJISEfficiency|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.heatpump_water_heater_jis_efficiency_M1SEJISEfficiency.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプのJIS効率 #}
+                <div class="form-group" id="id_form_heatpump_water_heater_jis_efficiency_Other" style="display:none;">
+                    {{ form.heatpump_water_heater_jis_efficiency_Other.label_tag }}
+                    {% for error in form.heatpump_water_heater_jis_efficiency_Other.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.heatpump_water_heater_jis_efficiency_Other class=form.heatpump_water_heater_jis_efficiency_Other|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.heatpump_water_heater_jis_efficiency_Other.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 給湯熱源機の名前 #}
+                <div class="form-group" id="id_form_water_heater_name" style="display:none;">
+                    {{ form.water_heater_name.label_tag }}
+                    {% for error in form.water_heater_name.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_name class=form.water_heater_name|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_name.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機の品番の入力 #}
+                <div class="form-group" id="id_form_water_heater_heatpump_unit_input" style="display:none;">
+                    {{ form.water_heater_heatpump_unit_input }}
+                    {{ form.water_heater_heatpump_unit_input.label_tag }}
+                    {% for error in form.water_heater_heatpump_unit_input.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_heatpump_unit_input.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機の品番 #}
+                <div class="form-group" id="id_form_water_heater_heatpump_unit" style="display:none;">
+                    {{ form.water_heater_heatpump_unit.label_tag }}
+                    {% for error in form.water_heater_heatpump_unit.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_heatpump_unit class=form.water_heater_heatpump_unit|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_heatpump_unit.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機の冷媒 #}
+                <div class="form-group" id="id_form_water_heater_heatpump_unit_coolant" style="display:none;">
+                    {{ form.water_heater_heatpump_unit_coolant.label_tag }}
+                    {% for error in form.water_heater_heatpump_unit_coolant.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_heatpump_unit_coolant class=form.water_heater_heatpump_unit_coolant|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_heatpump_unit_coolant.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機の貯湯ユニット品番 #}
+                <div class="form-group" id="id_form_water_heater_tank_unit" style="display:none;">
+                    {{ form.water_heater_tank_unit.label_tag }}
+                    {% for error in form.water_heater_tank_unit.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_tank_unit class=form.water_heater_tank_unit|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_tank_unit.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機の補助熱源機品番 #}
+                <div class="form-group" id="id_form_water_heater_backup_boiler" style="display:none;">
+                    {{ form.water_heater_backup_boiler.label_tag }}
+                    {% for error in form.water_heater_backup_boiler.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_backup_boiler class=form.water_heater_backup_boiler|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_backup_boiler.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機のタンクユニット設置場所 #}
+                <div class="form-group" id="id_form_water_heater_tank_place" style="display:none;">
+                    {{ form.water_heater_tank_place.label_tag }}
+                    {% for error in form.water_heater_tank_place.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_tank_place class=form.water_heater_tank_place|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_tank_place.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヒートポンプ・ガス併用型給湯機のタンクユニット容量 #}
+                <div class="form-group" id="id_form_water_heater_tank_capacity" style="display:none;">
+                    {{ form.water_heater_tank_capacity.label_tag }}
+                    {% for error in form.water_heater_tank_capacity.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.water_heater_tank_capacity class=form.water_heater_tank_capacity|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.water_heater_tank_capacity.help_text|safe }}
+                    </small>
+                </div>
+
+                {# コージェネレーションについて #}
+                <div class="form-group" id="id_form_water_heater_cogeneration_info" style="display:none;">
+                    <small class="form-text text-muted">
+                        ※コージェネレーション設備の設定をしてください。
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_pipe_type" style="display:block;">
+            <div class="card-header">配管方式</div>
+            <div class="card-body">
+
+                {# 配管方式 #}
+                <div class="form-group">
+                    {% for error in form.pipe_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.pipe_type class=form.pipe_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.pipe_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {# ヘッダー節湯措置 #}
+                <div class="form-group" id="id_form_pipe_saving" style="display:block;">
+                    {{ form.pipe_saving.label_tag }}
+                    {% for error in form.pipe_saving.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.pipe_saving class=form.pipe_saving|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.pipe_saving.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_tap_saving" style="display:block;">
+            <div class="card-header">水栓の節湯機能</div>
+            <div class="card-body">
+
+                {# 台所水栓の節湯機能 #}
+                <div class="form-group">
+                    {{ form.kitchen_tap_saving.label_tag }}
+                    {% for error in form.kitchen_tap_saving.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.kitchen_tap_saving class=form.kitchen_tap_saving|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.kitchen_tap_saving.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 浴室シャワーの節湯機能 #}
+                <div class="form-group" id="id_form_bath_shower_tap_saving" style="display:block;">
+                    {{ form.bath_shower_tap_saving.label_tag }}
+                    {% for error in form.bath_shower_tap_saving.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.bath_shower_tap_saving class=form.bath_shower_tap_saving|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.bath_shower_tap_saving.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 洗面水栓の節湯機能 #}
+                <div class="form-group">
+                    {{ form.wash_bowl_tap_saving.label_tag }}
+                    {% for error in form.wash_bowl_tap_saving.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.wash_bowl_tap_saving class=form.wash_bowl_tap_saving|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.wash_bowl_tap_saving.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_bath_insulation" style="display:block;">
+            <div class="card-header">浴槽の保温措置</div>
+            <div class="card-body">
+
+                {# 浴槽の保温措置 #}
+                <div class="form-group">
+                    {% for error in form.bath_insulation.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.bath_insulation class=form.bath_insulation|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.bath_insulation.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

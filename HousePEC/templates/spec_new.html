@@ -1,0 +1,88 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block javascript %}
+    <script src="{% static 'js/form_new_ldk_heating.js' %}"></script>
+    <script src="{% static 'js/form_new_oth_heating.js' %}"></script>
+    <script src="{% static 'js/form_new_hotwater_heating_source.js' %}"></script>
+    <script src="{% static 'js/form_new_water_heater.js' %}"></script>
+    <script src="{% static 'js/form_new_solar_hotwater.js' %}"></script>
+    <script src="{% static 'js/form_new_cooling.js' %}"></script>
+    <script src="{% static 'js/form_new_ventilation.js' %}"></script>
+    <script src="{% static 'js/form_new_lighting.js' %}"></script>
+    <script src="{% static 'js/form_new_photovoltaic.js' %}"></script>
+    <script src="{% static 'js/form_new_cogene.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'spec_list' house.builder.pk house.pk %}">{{ house.name }}</a></li>
+  <li class="breadcrumb-item active">新規仕様の登録</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'spec_list' house.builder.pk house.pk %}">設備仕様リスト一覧に戻る</a>
+</p>
+
+{% if messages %}
+<p class="text-danger">入力値に以下の不具合があります。修正して、ページ下部の「登録」をクリックしてください。</p>
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+<p>変更する項目を入力して、ページ下部の「登録」をクリックして下さい。</p>
+{% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {% load form_tags widget_tweaks %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.non_field_errors %}
+          <p {% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="container mb-2">
+        {# 暖房設備 #}
+        {% include 'includes/form_new_heating.html' %}
+
+        {# 冷房設備 #}
+        {% include 'includes/form_new_cooling.html' %}
+
+        {# 換気設備 #}
+        {% include 'includes/form_new_ventilation.html' %}
+
+        {# 給湯設備 #}
+        {% include 'includes/form_new_hotwater.html' %}
+
+        {# 太陽熱給湯設備 #}
+        {% include 'includes/form_new_solar_hotwater.html' %}
+
+        {# 照明設備 #}
+        {% include 'includes/form_new_lighting.html' %}
+
+        {# 太陽光発電設備 #}
+        {% include 'includes/form_new_photovoltaic.html' %}
+
+        {# コージェネレーション設備 #}
+        {% include 'includes/form_new_cogene.html' %}
+
+    </div>
+
+    <button type="submit" class="btn btn-success">登録</button>
+  </form>
+
+{% endblock %}
+

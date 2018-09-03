@@ -1,0 +1,23 @@
+﻿{% extends 'base_accounts.html' %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">ユーザー登録</h3>
+            <p>ユーザー名とパスワードを入力して、「ユーザー登録」をクリックしてください。</p>
+            <p>同じユーザー名で既に登録がある場合、そのユーザー名を使用することはできません。他のユーザー名をご検討ください。</p> 
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-primary btn-block">ユーザー登録</button>
+          </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+          ユーザー登録済みですか？ <a href="{% url 'login' %}">ログイン</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

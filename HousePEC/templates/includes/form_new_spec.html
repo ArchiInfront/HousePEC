@@ -1,0 +1,121 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅の床面積と外皮性能</div>
+    <div class="card-body">
+
+        <div class="card mb-2">
+            <div class="card-header">床面積</div>
+            <div class="card-body">
+
+                {# 延べ床面積 #}
+                <div class="form-group">
+                    {{ form.total_area.label_tag }}
+                    {% for error in form.total_area.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.total_area class=form.total_area|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.total_area.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 主居室床面積 #}
+                <div class="form-group">
+                    {{ form.ldk_area.label_tag }}
+                    {% for error in form.ldk_area.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ldk_area class=form.ldk_area|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.total_area.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 他居室床面積 #}
+                <div class="form-group">
+                    {{ form.oth_area.label_tag }}
+                    {% for error in form.oth_area.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.oth_area class=form.oth_area|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.oth_area.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2">
+            <div class="card-header">外皮</div>
+            <div class="card-body">
+
+                {# 外皮面積 #}
+                <div class="form-group">
+                    {{ form.total_envelope_area.label_tag }}
+                    {% for error in form.total_envelope_area.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.total_envelope_area class=form.total_envelope_area|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.total_envelope_area.help_text|safe }}
+                    </small>
+                </div>
+
+                {# UA値 #}
+                <div class="form-group">
+                    {{ form.ua_value.label_tag }}
+                    {% for error in form.ua_value.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ua_value class=form.ua_value|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.ua_value.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 暖房期ηAH #}
+                <div class="form-group">
+                    {{ form.winter_ha_value.label_tag }}
+                    {% for error in form.winter_ha_value.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.winter_ha_value class=form.winter_ha_value|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.winter_ha_value.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 冷房機ηAH #}
+                <div class="form-group">
+                    {{ form.summer_ha_value.label_tag }}
+                    {% for error in form.summer_ha_value.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.summer_ha_value class=form.summer_ha_value|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.summer_ha_value.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

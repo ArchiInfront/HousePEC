@@ -1,0 +1,183 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅のコージェネレーション設備</div>
+    <div class="card-body">
+
+        {# コージェネレーションの設置 #}
+        <div class="form-group">
+            {% for error in form.cogene.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.cogene class=form.cogene|input_class %}
+            <small class="form-text text-muted">
+            {{ form.cogene.help_text|safe }}
+            </small>
+        </div>
+
+        {# コージェネレーションの種類 #}
+        <div class="form-group" id="id_form_cogene_type" style="display:none">
+            {{ form.cogene_type.label_tag }}
+            {% for error in form.cogene_type.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.cogene_type class=form.cogene_type|input_class %}
+            <small class="form-text text-muted">
+            {{ form.cogene_type.help_text|safe }}
+            </small>
+        </div>
+
+        <div class="card mb-2" id="id_card_cogene_PEFC" style="display:none;">
+            <div class="card-header">コージェネレーション機器（PEFC）</div>
+            <div class="card-body">
+
+                {# コージェネレーション機器（PEFC）を指定する #}
+                <div class="form-group" id="id_form_cogene_PEFC_input" style="display:block">
+                    {{ form.cogene_PEFC_input }}
+                    {{ form.cogene_PEFC_input.label_tag }}
+                    {% for error in form.cogene_PEFC_input.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_PEFC_input.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 発電ユニット（PEFC） #}
+                <div class="form-group" id="id_form_cogene_powerunit_PEFC" style="display:none">
+                    {{ form.cogene_powerunit_PEFC.label_tag }}
+                    {% for error in form.cogene_powerunit_PEFC.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_powerunit_PEFC class=form.cogene_powerunit_PEFC|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_powerunit_PEFC.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 貯湯ユニット（PEFC） #}
+                <div class="form-group" id="id_form_cogene_tankunit_PEFC" style="display:none">
+                    {{ form.cogene_tankunit_PEFC.label_tag }}
+                    {% for error in form.cogene_tankunit_PEFC.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_tankunit_PEFC class=form.cogene_tankunit_PEFC|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_tankunit_PEFC.help_text|safe }}
+                    </small>
+                </div>
+
+                {# バックアップボイラー（PEFC） #}
+                <div class="form-group" id="id_form_cogene_backupboiler_PEFC" style="display:none">
+                    {{ form.cogene_backupboiler_PEFC.label_tag }}
+                    {% for error in form.cogene_backupboiler_PEFC.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_backupboiler_PEFC class=form.cogene_backupboiler_PEFC|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_backupboiler_PEFC.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_cogene_SOFC" style="display:none;">
+            <div class="card-header">コージェネレーション機器（SOFC）</div>
+            <div class="card-body">
+
+                {# コージェネレーション機器（SOFC）を指定する #}
+                <div class="form-group" id="id_form_cogene_SOFC_input" style="display:block">
+                    {{ form.cogene_SOFC_input }}
+                    {{ form.cogene_SOFC_input.label_tag }}
+                    {% for error in form.cogene_SOFC_input.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_SOFC_input.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 発電ユニット（SOFC） #}
+                <div class="form-group" id="id_form_cogene_powerunit_SOFC" style="display:none">
+                    {{ form.cogene_powerunit_SOFC.label_tag }}
+                    {% for error in form.cogene_powerunit_SOFC.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_powerunit_SOFC class=form.cogene_powerunit_SOFC|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_powerunit_SOFC.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 貯湯ユニット（SOFC） #}
+                <div class="form-group" id="id_form_cogene_tankunit_SOFC" style="display:none">
+                    {{ form.cogene_tankunit_SOFC.label_tag }}
+                    {% for error in form.cogene_tankunit_SOFC.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_tankunit_SOFC class=form.cogene_tankunit_SOFC|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_tankunit_SOFC.help_text|safe }}
+                    </small>
+                </div>
+
+                {# バックアップボイラー（SOFC） #}
+                <div class="form-group" id="id_form_cogene_backupboiler_SOFC" style="display:none">
+                    {{ form.cogene_backupboiler_SOFC.label_tag }}
+                    {% for error in form.cogene_backupboiler_SOFC.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_backupboiler_SOFC class=form.cogene_backupboiler_SOFC|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_backupboiler_SOFC.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_cogene_unit_powerunit_2015" style="display:none;">
+            <div class="card-header">コージェネ発電ユニット（2015年以前の評価方法またはGEC）</div>
+            <div class="card-body">
+
+                {# コージェネ発電ユニット（2015年以前の評価方法またはGEC） #}
+                <div class="form-group" id="id_form_cogene_unit_powerunit_2015" style="display:block">
+                    {% for error in form.cogene_unit_powerunit_2015.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.cogene_unit_powerunit_2015 class=form.cogene_unit_powerunit_2015|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.cogene_unit_powerunit_2015.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

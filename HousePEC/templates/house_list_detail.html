@@ -1,0 +1,184 @@
+﻿{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item active">登録住宅リスト：{{ builder.name }}</li>
+  <li class="breadcrumb-item active">{{ house.all.count }}棟の登録があります</li>
+{% endblock %}
+
+{% block content %}
+
+  <div class="mb-4">
+    <a href="{% url 'house_new' builder.pk %}" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="クリックすると住宅の新規作成画面に移ります">
+     住宅の新規作成
+    </a>
+      （最大10棟まで登録できます）
+  </div>
+
+{% if house.all.count %}
+
+    <p>
+        各住宅の設備仕様の追加・変更を行う場合は、下のリストの中の、それぞれの住宅名をクリックして下さい。<br />
+        各住宅の住宅名や建設地域、床面積等の変更を行う場合は、「変更」をクリックして下さい。<br />
+        各住宅の複製を作成する場合は、「複製」をクリックして下さい。複製された住宅は、リストの最後に追加されます。<br />
+        登録された住宅を削除する場合は、「削除」をクリックして下さい。<br />
+    <small>
+        *詳細設定項目の内容は、その設定を行っていない場合、「利用しない」が初期値となっています。内容を変更する場合は、「変更」をクリックして下さい。<br />
+        <a href="{% url 'house_list' builder.pk %} ">抜粋表示に戻す</a>
+    </small>
+    </p>
+
+
+{% for i in house.all %}
+    <div class="card mb-2">
+      <div class="card-body">
+
+        <div class="row mb-2">
+            <div class="col-8">
+                <div>
+                    <a href="{% url 'spec_list' builder.pk i.pk %}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="性能・設備仕様の追加・変更を行います">
+                    {{ i.name }}
+                    </a>
+                </div>
+            </div>
+            <div class="col-4 text-right">
+                <div>
+                    <a href="{% url 'house_update_detail' builder.pk i.pk %}" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="住宅名や建設地域、床面積等の変更を行います">変更</a>
+                    <a href="{% url 'house_copy' builder.pk i.pk %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom" title="複製された住宅はリストの最後に追加されます">複製</a>
+                    <a href="{% url 'house_confirm_delete' builder.pk i.pk %}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="登録された住宅が削除されます">削除</a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>UA値[W/m2・K]</th>
+                    <th colspan="2">ηH値[-]</th>
+                    <th>外皮面積[m2]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ i.ua_value }}</td>
+                    <td>暖房期：{{ i.winter_ha_value }}</td>
+                    <td>冷房期：{{ i.summer_ha_value }}</td>
+                    <td>{{ i.total_envelope_area }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="3">床面積[m2]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>延床：{{ i.total_area }}</td>
+                    <td>主居室：{{ i.ldk_area }}</td>
+                    <td>他居室：{{ i.oth_area }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>建設地域</th>
+                    <th>日射区分</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ i.get_region_display }}</td>
+                    <td>{{ i.get_annual_solar_level_display }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>住宅の登録日時</th>
+                    <th>住宅の更新日時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ i.create_date }}</td>
+                    <td>{{ i.update_date }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>設備仕様登録数</th>
+                    <th>設備仕様の最終更新日時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ i.get_registered_specs }}</td>
+                    <td>{{ i.get_last_updated.update_date }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card mb-2">
+            <div class="card-header">
+                詳細設定項目
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>蓄熱利用</th>
+                            <th>床下経由換気</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ i.get_heat_storage_display }}</td>
+                            {% if i.under_floor_ventilation == 'AlwaysOn' %}
+                                <td>{{ i.get_under_floor_ventilation_display }}（面積割合：{{ i.under_floor_ventilation_area_rate }}%）</td>
+                            {% else %}
+                                <td>{{ i.get_under_floor_ventilation_display }}</td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">通風利用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>主居室：{{ i.get_ldk_natural_wind_display }}</td>
+                            <td>他居室：{{ i.get_oth_natural_wind_display }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+{% endfor %}
+
+{% else %}
+
+    <p>登録されている住宅はありません。</p>
+
+{% endif %}
+
+{% endblock %}
+

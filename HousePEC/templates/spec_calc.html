@@ -1,0 +1,91 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  <li class="breadcrumb-item active">{{ house.name }}の一次エネルギー消費量計算結果</li>
+  <li class="breadcrumb-item active">{{ specs.all.count }}仕様の登録の内、未計算は{{ calcs.all.count }}仕様です。</li>
+{% endblock %}
+
+{% block content %}
+
+<p><a href="{% url 'spec_list' house.builder.pk house.pk %}">登録設備仕様リスト一覧に戻る</a></p>
+
+{% if data_list %}
+{% for i in data_list %}
+<div class="row">
+    {% if i.ErrMessage == None %}
+    <div class="col-sm-5">
+        <div class="card mb-2">
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead class="text-right">
+                        <tr>
+                            <th scope="col">No.{{ forloop.counter }}</th>
+                            <th scope="col">暖房</th>
+                            <th scope="col">冷房</th>
+                            <th scope="col">換気</th>
+                            <th scope="col">給湯</th>
+                            <th scope="col">照明</th>
+                            <th scope="col">合計</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-right">
+                        <tr>
+                            <th scope="row">基準値</th>
+                            <td>{{ i.Heating.1 }}</td>
+                            <td>{{ i.Cooling.1 }}</td>
+                            <td>{{ i.Ventilation.1 }}</td>
+                            <td>{{ i.Hotwater.1 }}</td>
+                            <td>{{ i.Lighting.1 }}</td>
+                            <td>{{ i.subTotal.1 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">設計値</th>
+                            <td>{{ i.Heating.0 }}</td>
+                            <td>{{ i.Cooling.0 }}</td>
+                            <td>{{ i.Ventilation.0 }}</td>
+                            <td>{{ i.Hotwater.0 }}</td>
+                            <td>{{ i.Lighting.0 }}</td>
+                            <td>{{ i.subTotal.0 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        <div class="card">
+            <div class="card-body">
+                <img src="data:image/png;base64, {{ i.fig }}" alt="somealt" />
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">No.{{ forloop.counter }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            エラーメッセージ：{{ i.ErrMessage }}
+        </tbody>
+    </table>
+    {% endif %}
+
+</div>
+{% endfor %}
+
+{% else %}
+    <p>登録設備仕様がありません</p>
+{% endif %}
+
+{% endblock %}
+
+

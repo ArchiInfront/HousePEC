@@ -1,0 +1,38 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  <li class="breadcrumb-item active">{{ house.name }}の一次エネルギー消費量計算結果</li>
+  <li class="breadcrumb-item active">{{ specs.all.count }}仕様の登録の内、未計算は{{ calcs.all.count }}仕様です。</li>
+{% endblock %}
+
+{% block content %}
+
+<p><a href="{% url 'spec_list' house.builder.pk house.pk %}">登録設備仕様リスト一覧に戻る</a></p>
+
+{% if data_list %}
+{% for i in data_list %}
+<table class="table table-sm">
+    <tbody>
+        <tr>
+            <th scope="row">No.{{ forloop.counter }}</th>
+            <td>
+                {{ i }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endfor %}
+{% else %}
+    <p>登録設備仕様がありません</p>
+{% endif %}
+
+{% endblock %}
+
+

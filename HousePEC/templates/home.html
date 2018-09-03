@@ -1,0 +1,31 @@
+﻿{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">一次エネルギー消費量計算</li>
+{% endblock %}
+
+{% block content %}
+
+    <p class="lead">
+    このページでは、平成28年省エネルギー基準に準拠したエネルギー消費性能評価の、エネルギー消費性能計算プログラム（住宅版）APIを用いて、
+    住宅の一次エネルギー消費量を一括（最大40仕様まで）して計算します。
+    </p>
+    <p>
+    本サービスは、住宅・住戸の省エネルギー性能の判定プログラムAPI機能を使用しています。
+    ただし、本サービスの内容は国立研究開発法人建築研究所又は国土技術政策総合研究所によって保証されたものではありません。
+    </p>
+
+    {% if user.is_authenticated %}
+      <div class="mb-4">
+        <a href="{% url 'house_list' pk=user.pk %}" class="btn btn-primary">住宅の一次エネルギー消費量計算アプリを開始する</a>
+      </div>
+
+    {% else %}
+    <p>
+    住宅の一次エネルギー消費量計算アプリを利用するには、「ログイン」をして下さい。<br />
+    ユーザー登録が、まだお済みではない場合には、最初に「ユーザー登録」をして下さい。
+    </p>
+    {% endif %}
+
+{% endblock %}
+

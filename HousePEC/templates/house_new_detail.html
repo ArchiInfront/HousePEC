@@ -1,0 +1,37 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}新規住宅の登録（詳細）{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' builder.pk %}">{{ builder.name }}</a></li>
+  <li class="breadcrumb-item active">新規住宅の登録（詳細）</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'house_list' builder.pk %}">住宅リスト一覧に戻る</a>
+</p>
+
+{% if messages %}
+<p>入力値に以下の不具合があります。修正して、ページ下部の「登録」をクリックしてください。</p>
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+<p>以下の項目に入力して、ページ下部の「登録」をクリックしてください。</p>
+{% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+      {% include 'includes/form.html' %}
+      
+    <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="クリックすると新規に住宅を登録します">登録</button>
+  </form>
+
+{% endblock %}
+
+

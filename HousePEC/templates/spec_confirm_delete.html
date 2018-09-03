@@ -1,0 +1,290 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' builder.pk %}">{{ builder.name }}</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'spec_list' builder.pk house.pk %}">{{ house.name }}</a></li>
+  <li class="breadcrumb-item active">登録設備仕様の削除</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'spec_list' house.builder.pk house.pk %}">設備仕様リスト一覧に戻る</a>
+</p>
+
+<p class="text-danger">
+    住宅「{{ house.name }}」に登録されている、以下の設備仕様を削除します。ページ下部の「削除」をクリックして下さい。
+</p>
+
+<div class="card mb-2">
+    <div class="card-header alert alert-danger" role="alert">
+        <div class="row">
+            <div>
+                更新日時: {{ spec.update_date }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>暖房設備</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% if spec.heating_system == 'AllSpaceHeating' %}
+                <td colspan="2">
+                    <p>{{ i.get_heating_system_display }}</p>
+                    {% for ii in spec.get_ldk_heating_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                {% else %}
+                <td>
+                    <p>主居室：{{ spec.get_ldk_heating_type_display }}</p>
+                    {% for ii in spec.get_ldk_heating_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <p>他居室：{{ spec.get_oth_heating_type_display }}</p>
+                    {% for ii in spec.get_oth_heating_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>冷房設備</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p>主居室：{{ spec.get_ldk_cooling_type_display }}</p>
+                    {% for ii in spec.get_ldk_cooling_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <p>他居室：{{ spec.get_oth_cooling_type_display }}</p>
+                    {% for ii in spec.get_oth_cooling_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>機械換気設備</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p>{{ spec.get_ventilation_type_display }}</p>
+                    {% for ii in spec.get_ventilation_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>給湯設備</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p>{{ spec.get_bathroom_display }}：{{ spec.get_bath_function_display }}</p>
+                    {% for ii in spec.get_hotwater_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>照明設備</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p>主居室：{{ spec.get_ldk_lighting_display }}</p>
+                    {% for ii in spec.get_ldk_lighting_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <p>他居室：{{ spec.get_oth_lighting_display }}</p>
+                    {% for ii in spec.get_oth_lighting_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <p>非居室：{{ spec.get_nonldk_lighting_display }}</p>
+                    {% for ii in spec.get_nonldk_lighting_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>太陽光発電</th>
+                {% if spec.photovoltaic == 'Panel2' %}
+                <th></th>
+                {% elif spec.photovoltaic == 'Panel3' %}
+                <th></th>
+                <th></th>
+                {% elif spec.photovoltaic == 'Panel4' %}
+                <th></th>
+                <th></th>
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% for ii in spec.get_photovoltaic_base_context %}
+                    <p>{{ ii }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                {% if spec.photovoltaic == 'Panel1' %}
+                <td>
+                    <ul>第1面</ul>
+                    {% for ii in spec.get_photovoltaic_1_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                {% endif %}
+                {% if spec.photovoltaic == 'Panel2' %}
+                <td>
+                    <ul>第1面</ul>
+                    {% for ii in spec.get_photovoltaic_1_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <ul>第2面</ul>
+                    {% for ii in spec.get_photovoltaic_2_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                {% endif %}
+                {% if spec.photovoltaic == 'Panel3' %}
+                <td>
+                    <ul>第1面</ul>
+                    {% for ii in spec.get_photovoltaic_1_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <ul>第2面</ul>
+                    {% for ii in spec.get_photovoltaic_2_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <ul>第3面</ul>
+                    {% for ii in spec.get_photovoltaic_3_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                {% endif %}
+                {% if spec.photovoltaic == 'Panel4' %}
+                <td>
+                    <ul>第1面</ul>
+                    {% for ii in spec.get_photovoltaic_1_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <ul>第2面</ul>
+                    {% for ii in spec.get_photovoltaic_2_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <ul>第3面</ul>
+                    {% for ii in spec.get_photovoltaic_3_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                <td>
+                    <ul>第4面</ul>
+                    {% for ii in spec.get_photovoltaic_4_context %}
+                    <ul>{{ ii }}</ul>
+                    {% endfor %}
+                </td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+      
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>コージェネレーション設備</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% for ii in spec.get_cogene_context %}
+                    <p>{{ ii }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      
+    </div>
+</div>
+
+<p class="text-danger">この操作は取り消すことができません。内容を確認してから「削除」をクリックしてください。</p>
+
+  <form method="post">
+    {% csrf_token %}
+      {% include 'includes/form.html' %}
+      
+    <button type="submit" class="btn btn-danger">削除</button>
+  </form>
+
+{% endblock %}
+

@@ -1,0 +1,43 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}新規住宅の登録{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' builder.pk %}">{{ builder.name }}</a></li>
+  <li class="breadcrumb-item active">新規住宅の登録</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'house_list' builder.pk %}">住宅リスト一覧に戻る</a>
+</p>
+
+{% if messages %}
+<p>入力値に以下の不具合があります。修正して、ページ下部の「登録」をクリックしてください。</p>
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+<p>以下の項目に入力して、ページ下部の「登録」をクリックしてください。</p>
+{% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+      {% include 'includes/form.html' %}
+      
+    <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="クリックすると新規に住宅を登録します">登録</button>
+  </form>
+
+<small>
+    蓄熱の利用や床下経由換気の採用、通風利用等の詳細設定も含めて新規住宅を登録する場合は、<a href="{% url 'house_new_detail' builder.pk %} ">こちら</a>をクリックしてください。<br />
+    このページから登録すると、詳細設定の初期値は「利用しない」として登録されます。<br />
+    なお、詳細設定の内容は、住宅リスト一覧の「変更」をクリックすることで、後から変更することもできます。
+</small>
+
+{% endblock %}
+
+

@@ -1,0 +1,601 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅の暖房設備</div>
+    <div class="card-body">
+        <div class="form-group">
+            {% for error in form.heating_system.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.heating_system class=form.heating_system|input_class %}
+            <small class="form-text text-muted">
+            {{ form.heating_system.help_text|safe }}
+            </small>
+        </div>
+
+        <div class="card mb-2" id="id_card_ElectricHeatPumpCentralHeating" style="display:none;">
+            <div class="card-header">ダクト式セントラル空調機（住戸全体を暖房する）</div>
+            <div class="card-body">
+
+                {#ダクト式セントラル空調機：ElectricHeatPumpCentralHeating#}
+                <div id="id_subcard_ElectricHeatPumpCentralHeating" style="display:block;">
+                    <div class="form-group">
+                        {{ form.heating_rated_input }}
+                        {{ form.heating_rated_input.label_tag }}
+                        {% for error in form.heating_rated_input.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        <small class="form-text text-muted">
+                        {{ form.heating_rated_input.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralHeating_rated_capacity" style="display:none;">
+                        {{ form.heating_rated_capacity.label_tag }}
+                        {% for error in form.heating_rated_capacity.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.heating_rated_capacity class=form.heating_rated_capacity|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.heating_rated_capacity.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralHeating_rated_power" style="display:none;">
+                        {{ form.heating_rated_power.label_tag }}
+                        {% for error in form.heating_rated_power.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.heating_rated_power class=form.heating_rated_power|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.heating_rated_power.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralHeating_power_correction" style="display:block;">
+                        {{ form.heating_power_correction.label_tag }}
+                        {% for error in form.heating_power_correction.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.heating_power_correction class=form.heating_power_correction|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.heating_power_correction.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ElectricHeatPumpCentralHeating_coefficient" style="display:block;">
+                        {{ form.heating_coefficient.label_tag }}
+                        {% for error in form.heating_coefficient.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.heating_coefficient class=form.heating_coefficient|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.heating_coefficient.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_ldk_heating" style="display:block;">
+            <div class="card-header">主居室の暖房</div>
+            <div class="card-body">
+
+                {#主居室の暖房#}
+                <div class="form-group">
+                    {% for error in form.ldk_heating_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ldk_heating_type class=form.ldk_heating_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.ldk_heating_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {#主居室：RoomAirConditioningHeating#}
+                <div id="id_subcard_ldk_RoomAirConditioningHeating" style="display:block;">
+                    <div class="form-group">
+                        {{ form.ldk_ac_heating_efficiency.label_tag }}
+                        {% for error in form.ldk_ac_heating_efficiency.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_heating_efficiency class=form.ldk_ac_heating_efficiency|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_heating_efficiency.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.ldk_ac_heating_compressor.label_tag }}
+                        {% for error in form.ldk_ac_heating_compressor.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_heating_compressor class=form.ldk_ac_heating_compressor|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_heating_compressor.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#主居室：FFHeating#}
+                <div id="id_subcard_ldk_FFHeating" style="display:none;">
+                    <div class="form-group">
+                        {{ form.ldk_ff_saving_input }}
+                        {{ form.ldk_ff_saving_input.label_tag }}
+                        {% for error in form.ldk_ff_saving_input.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ff_saving_input.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_ldk_ff_heating_efficiency" style="display:block;">
+                        {{ form.ldk_ff_heating_efficiency.label_tag }}
+                        {% for error in form.ldk_ff_heating_efficiency.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ff_heating_efficiency class=form.ldk_ff_heating_efficiency|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ff_heating_efficiency.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#主居室：HotWaterFloorHeatingRadiator#}
+                <div id="id_subcard_ldk_HotWaterFloorHeatingRadiator" style="display:none;">
+                    <div class="form-group">
+                        {{ form.ldk_hotwater_floorheating_area_rate.label_tag }}
+                        {% for error in form.ldk_hotwater_floorheating_area_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_hotwater_floorheating_area_rate class=form.ldk_hotwater_floorheating_area_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_hotwater_floorheating_area_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.ldk_hotwater_floorheating_upward_heatflow_rate.label_tag }}
+                        {% for error in form.ldk_hotwater_floorheating_upward_heatflow_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_hotwater_floorheating_upward_heatflow_rate class=form.ldk_hotwater_floorheating_upward_heatflow_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_hotwater_floorheating_upward_heatflow_rate.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#主居室：ElecricFloorHeating#}
+                <div id="id_subcard_ldk_ElecricFloorHeating" style="display:none;">
+                    <div class="form-group">
+                        {{ form.ldk_elecric_floorheating_area_rate.label_tag }}
+                        {% for error in form.ldk_elecric_floorheating_area_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_elecric_floorheating_area_rate class=form.ldk_elecric_floorheating_area_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_elecric_floorheating_area_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.ldk_elecric_floorheating_upward_heatflow_rate.label_tag }}
+                        {% for error in form.ldk_elecric_floorheating_upward_heatflow_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_elecric_floorheating_upward_heatflow_rate class=form.ldk_elecric_floorheating_upward_heatflow_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_elecric_floorheating_upward_heatflow_rate.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#主居室：FloorHeatingWithRAC#}
+                <div id="id_subcard_ldk_FloorHeatingWithRAC" style="display:none;">
+                    <div class="form-group">
+                        {{ form.ldk_ac_floorheating_area_rate.label_tag }}
+                        {% for error in form.ldk_ac_floorheating_area_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_floorheating_area_rate class=form.ldk_ac_floorheating_area_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_floorheating_area_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.ldk_ac_floorheating_upward_heatflow_rate.label_tag }}
+                        {% for error in form.ldk_ac_floorheating_upward_heatflow_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_floorheating_upward_heatflow_rate class=form.ldk_ac_floorheating_upward_heatflow_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_floorheating_upward_heatflow_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.ldk_ac_floorheating_pipe.label_tag }}
+                        {% for error in form.ldk_ac_floorheating_pipe.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_ac_floorheating_pipe class=form.ldk_ac_floorheating_pipe|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_ac_floorheating_pipe.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+                
+                {#主居室：OtherHeatingDevice#}
+                <div id="id_subcard_ldk_OtherHeatingDevice" style="display:none;">
+                    <div class="form-group">
+                        {{ form.ldk_other_heating_device_name.label_tag }}
+                        {% for error in form.ldk_other_heating_device_name.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.ldk_other_heating_device_name class=form.ldk_other_heating_device_name|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.ldk_other_heating_device_name.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_oth_heating" style="display:block;">
+            <div class="card-header">他居室の暖房</div>
+            <div class="card-body">
+
+                {#他居室の暖房#}
+                <div class="form-group">
+                    {% for error in form.oth_heating_type.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.oth_heating_type class=form.oth_heating_type|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.oth_heating_type.help_text|safe }}
+                    </small>
+                </div>
+
+                {#他居室：RoomAirConditioningHeating#}
+                <div id="id_subcard_oth_RoomAirConditioningHeating" style="display:block;">
+                    <div class="form-group">
+                        {{ form.oth_ac_heating_efficiency.label_tag }}
+                        {% for error in form.oth_ac_heating_efficiency.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_heating_efficiency class=form.oth_ac_heating_efficiency|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_heating_efficiency.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.oth_ac_heating_compressor.label_tag }}
+                        {% for error in form.oth_ac_heating_compressor.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_heating_compressor class=form.oth_ac_heating_compressor|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_heating_compressor.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#他居室：FFHeating#}
+                <div id="id_subcard_oth_FFHeating" style="display:none;">
+                    <div class="form-group">
+                        {{ form.oth_ff_saving_input }}
+                        {{ form.oth_ff_saving_input.label_tag }}
+                        {% for error in form.oth_ff_saving_input.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ff_saving_input.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group" id="id_form_oth_ff_heating_efficiency" style="display:block;">
+                        {{ form.oth_ff_heating_efficiency.label_tag }}
+                        {% for error in form.oth_ff_heating_efficiency.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ff_heating_efficiency class=form.oth_ff_heating_efficiency|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ff_heating_efficiency.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#他居室：HotWaterFloorHeatingRadiator#}
+                <div id="id_subcard_oth_HotWaterFloorHeatingRadiator" style="display:none;">
+                    <div class="form-group">
+                        {{ form.oth_hotwater_floorheating_area_rate.label_tag }}
+                        {% for error in form.oth_hotwater_floorheating_area_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_hotwater_floorheating_area_rate class=form.oth_hotwater_floorheating_area_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_hotwater_floorheating_area_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.oth_hotwater_floorheating_upward_heatflow_rate.label_tag }}
+                        {% for error in form.oth_hotwater_floorheating_upward_heatflow_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_hotwater_floorheating_upward_heatflow_rate class=form.oth_hotwater_floorheating_upward_heatflow_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_hotwater_floorheating_upward_heatflow_rate.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#他居室：ElecricFloorHeating#}
+                <div id="id_subcard_oth_ElecricFloorHeating" style="display:none;">
+                    <div class="form-group">
+                        {{ form.oth_elecric_floorheating_area_rate.label_tag }}
+                        {% for error in form.oth_elecric_floorheating_area_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_elecric_floorheating_area_rate class=form.oth_elecric_floorheating_area_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_elecric_floorheating_area_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.oth_elecric_floorheating_upward_heatflow_rate.label_tag }}
+                        {% for error in form.oth_elecric_floorheating_upward_heatflow_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_elecric_floorheating_upward_heatflow_rate class=form.oth_elecric_floorheating_upward_heatflow_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_elecric_floorheating_upward_heatflow_rate.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+                {#他居室：FloorHeatingWithRAC#}
+                <div id="id_subcard_oth_FloorHeatingWithRAC" style="display:none;">
+                    <div class="form-group">
+                        {{ form.oth_ac_floorheating_area_rate.label_tag }}
+                        {% for error in form.oth_ac_floorheating_area_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_floorheating_area_rate class=form.oth_ac_floorheating_area_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_floorheating_area_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.oth_ac_floorheating_upward_heatflow_rate.label_tag }}
+                        {% for error in form.oth_ac_floorheating_upward_heatflow_rate.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_floorheating_upward_heatflow_rate class=form.oth_ac_floorheating_upward_heatflow_rate|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_floorheating_upward_heatflow_rate.help_text|safe }}
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        {{ form.oth_ac_floorheating_pipe.label_tag }}
+                        {% for error in form.oth_ac_floorheating_pipe.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_ac_floorheating_pipe class=form.oth_ac_floorheating_pipe|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_ac_floorheating_pipe.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+                
+                {#他居室：OtherHeatingDevice#}
+                <div id="id_subcard_oth_OtherHeatingDevice" style="display:none;">
+                    <div class="form-group">
+                        {{ form.oth_other_heating_device_name.label_tag }}
+                        {% for error in form.oth_other_heating_device_name.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.oth_other_heating_device_name class=form.oth_other_heating_device_name|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.oth_other_heating_device_name.help_text|safe }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_hotwater_heating" style="display:none;">
+            <div class="card-header">温水暖房熱源</div>
+            <div class="card-body">
+                <div class="form-group">
+                    {{ form.hotwater_heating_system.label_tag }}
+                    {% for error in form.hotwater_heating_system.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.hotwater_heating_system class=form.hotwater_heating_system|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.hotwater_heating_system.help_text|safe }}
+                    </small>
+                </div>
+
+                {#温水暖房専用型熱源機器#}
+                <div id="id_subcard_hotwater_heating_source_type" style="display:block;">
+                    <div class="form-group">
+                        {{ form.hotwater_heating_source_type.label_tag }}
+                        {% for error in form.hotwater_heating_source_type.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.hotwater_heating_source_type class=form.hotwater_heating_source_type|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.hotwater_heating_source_type.help_text|safe }}
+                        </small>
+                    </div>
+
+                    {# 温水暖房熱源機のJIS効率の入力 #}
+                    <div class="form-group" id="id_form_hotwater_heating_source_saving_input" style="display:block;">
+                        {{ form.hotwater_heating_source_saving_input }}
+                        {{ form.hotwater_heating_source_saving_input.label_tag }}
+                        {% for error in form.hotwater_heating_source_saving_input.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        <small class="form-text text-muted">
+                        {{ form.hotwater_heating_source_saving_input.help_text|safe }}
+                        </small>
+                    </div>
+
+                    {# 温水暖房熱源機（石油熱源機）JIS効率[%] #}
+                    <div class="form-group" id="id_form_hotwater_heating_source_efficiency_OilClassic" style="display:none;">
+                        {{ form.hotwater_heating_source_efficiency_OilClassic.label_tag }}
+                        {% for error in form.hotwater_heating_source_efficiency_OilClassic.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.hotwater_heating_source_efficiency_OilClassic class=form.hotwater_heating_source_efficiency_OilClassic|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.hotwater_heating_source_efficiency_OilClassic.help_text|safe }}
+                        </small>
+                    </div>
+
+                    {# 温水暖房熱源機（ガス従来型熱源機）JIS効率[%] #}
+                    <div class="form-group" id="id_form_hotwater_heating_source_efficiency_GasClassic" style="display:none;">
+                        {{ form.hotwater_heating_source_efficiency_GasClassic.label_tag }}
+                        {% for error in form.hotwater_heating_source_efficiency_GasClassic.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.hotwater_heating_source_efficiency_GasClassic class=form.hotwater_heating_source_efficiency_GasClassic|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.hotwater_heating_source_efficiency_GasClassic.help_text|safe }}
+                        </small>
+                    </div>
+
+                    {# 温水暖房熱源機（ガス潜熱回収型熱源機）JIS効率[%] #}
+                    <div class="form-group" id="id_form_hotwater_heating_source_efficiency_GasLatentHeatRecovery" style="display:none;">
+                        {{ form.hotwater_heating_source_efficiency_GasLatentHeatRecovery.label_tag }}
+                        {% for error in form.hotwater_heating_source_efficiency_GasLatentHeatRecovery.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% render_field form.hotwater_heating_source_efficiency_GasLatentHeatRecovery class=form.hotwater_heating_source_efficiency_GasLatentHeatRecovery|input_class %}
+                        <small class="form-text text-muted">
+                        {{ form.hotwater_heating_source_efficiency_GasLatentHeatRecovery.help_text|safe }}
+                        </small>
+                    </div>
+
+                </div>
+
+                {# 給湯・温水暖房一体型について #}
+                <div class="form-group" id="id_form_hotwater_heating_integrated_info" style="display:none;">
+                    <small class="form-text text-muted">
+                        ※給湯設備の設定をしてください。
+                    </small>
+                </div>
+
+                {# コージェネレーションについて #}
+                <div class="form-group" id="id_form_hotwater_heating_cogeneration_info" style="display:none;">
+                    <small class="form-text text-muted">
+                        ※コージェネレーション設備の設定をしてください。
+                    </small>
+                </div>
+
+                {# 温水暖房機名称 #}
+                <div class="form-group" id="id_form_hotwater_heating_source_name" style="display:none;">
+                    {{ form.hotwater_heating_source_name.label_tag }}
+                    {% for error in form.hotwater_heating_source_name.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.hotwater_heating_source_name class=form.hotwater_heating_source_name|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.hotwater_heating_source_name.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 断熱配管の採用 #}
+                <div class="form-group" id="id_form_hotwater_heating_source_pipe" style="display:block;">
+                    {{ form.hotwater_heating_source_pipe.label_tag }}
+                    {% for error in form.hotwater_heating_source_pipe.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.hotwater_heating_source_pipe class=form.hotwater_heating_source_pipe|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.hotwater_heating_source_pipe.help_text|safe }}
+                    </small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

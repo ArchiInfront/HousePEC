@@ -1,0 +1,44 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  <li class="breadcrumb-item active">「{{ house.name }}」の変更</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'house_list' house.builder.pk %}">住宅リスト一覧に戻る</a>
+</p>
+
+{% if messages %}
+<p>入力値に以下の不具合があります。修正して、ページ下部の「更新」をクリックしてください。</p>
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+<p>変更する項目を入力して、ページ下部の「更新」をクリックして下さい。</p>
+{% endif %}
+
+    <small>
+        *蓄熱の利用や床下経由換気の採用、通風利用等の詳細設定も含めて変更する場合は、
+        <a href="{% url 'house_update_detail' builder.pk house.pk %} ">こちら</a>をクリックしてください。
+    </small>
+
+  <form method="post">
+    {% csrf_token %}
+      {% include 'includes/form.html' %}
+      
+    <button type="submit" class="btn btn-success">更新</button>
+  </form>
+
+{% endblock %}
+
+

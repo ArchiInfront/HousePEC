@@ -1,0 +1,359 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅の太陽光発電設備</div>
+    <div class="card-body">
+
+        {# 太陽光発電の設置 #}
+        <div class="form-group">
+            {% for error in form.photovoltaic.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.photovoltaic class=form.photovoltaic|input_class %}
+            <small class="form-text text-muted">
+            {{ form.photovoltaic.help_text|safe }}
+            </small>
+        </div>
+
+        {# パワコン効率の入力 #}
+        <div class="form-group" id="id_form_photovoltaic_power_conditioner_efficiency_input" style="display:none">
+            {{ form.photovoltaic_power_conditioner_efficiency_input }}
+            {{ form.photovoltaic_power_conditioner_efficiency_input.label_tag }}
+            {% for error in form.photovoltaic_power_conditioner_efficiency_input.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            <small class="form-text text-muted">
+            {{ form.photovoltaic_power_conditioner_efficiency_input.help_text|safe }}
+            </small>
+        </div>
+
+        {# パワコン効率 #}
+        <div class="form-group" id="id_form_photovoltaic_power_conditioner_efficiency" style="display:none">
+            {{ form.photovoltaic_power_conditioner_efficiency.label_tag }}
+            {% for error in form.photovoltaic_power_conditioner_efficiency.errors %}
+                <div class="invalid-feedback">
+                {{ error }}
+                </div>
+            {% endfor %}
+            {% render_field form.photovoltaic_power_conditioner_efficiency class=form.photovoltaic_power_conditioner_efficiency|input_class %}
+            <small class="form-text text-muted">
+            {{ form.photovoltaic_power_conditioner_efficiency.help_text|safe }}
+            </small>
+        </div>
+
+        <div class="card mb-2" id="id_card_Panel1" style="display:none;">
+            <div class="card-header">太陽光パネル第1面</div>
+            <div class="card-body">
+
+                {# 第1面容量 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_1_capacity.label_tag }}
+                    {% for error in form.photovol_panel_1_capacity.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_1_capacity class=form.photovol_panel_1_capacity|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_1_capacity.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第1面アレイ種類 #}
+                <div class="form-group">
+                    {{ form.photovoltaic_panel_1_cell.label_tag }}
+                    {% for error in form.photovoltaic_panel_1_cell.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovoltaic_panel_1_cell class=form.photovoltaic_panel_1_cell|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovoltaic_panel_1_cell.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第1面設置方式 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_1_setup.label_tag }}
+                    {% for error in form.photovol_panel_1_setup.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_1_setup class=form.photovol_panel_1_setup|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_1_setup.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第1面方位角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_1_direction.label_tag }}
+                    {% for error in form.photovol_panel_1_direction.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_1_direction class=form.photovol_panel_1_direction|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_1_direction.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第1面傾斜角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_1_angle.label_tag }}
+                    {% for error in form.photovol_panel_1_angle.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_1_angle class=form.photovol_panel_1_angle|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_1_angle.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_Panel2" style="display:none;">
+            <div class="card-header">太陽光パネル第2面</div>
+            <div class="card-body">
+
+                {# 第2面容量 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_2_capacity.label_tag }}
+                    {% for error in form.photovol_panel_2_capacity.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_2_capacity class=form.photovol_panel_2_capacity|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_2_capacity.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第2面アレイ種類 #}
+                <div class="form-group">
+                    {{ form.photovoltaic_panel_2_cell.label_tag }}
+                    {% for error in form.photovoltaic_panel_2_cell.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovoltaic_panel_2_cell class=form.photovoltaic_panel_2_cell|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovoltaic_panel_2_cell.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第2面設置方式 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_2_setup.label_tag }}
+                    {% for error in form.photovol_panel_2_setup.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_2_setup class=form.photovol_panel_2_setup|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_2_setup.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第2面方位角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_2_direction.label_tag }}
+                    {% for error in form.photovol_panel_2_direction.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_2_direction class=form.photovol_panel_2_direction|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_2_direction.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第2面傾斜角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_2_angle.label_tag }}
+                    {% for error in form.photovol_panel_2_angle.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_2_angle class=form.photovol_panel_2_angle|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_2_angle.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_Panel3" style="display:none;">
+            <div class="card-header">太陽光パネル第3面</div>
+            <div class="card-body">
+
+                {# 第3面容量 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_3_capacity.label_tag }}
+                    {% for error in form.photovol_panel_3_capacity.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_3_capacity class=form.photovol_panel_3_capacity|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_3_capacity.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第3面アレイ種類 #}
+                <div class="form-group">
+                    {{ form.photovoltaic_panel_3_cell.label_tag }}
+                    {% for error in form.photovoltaic_panel_3_cell.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovoltaic_panel_3_cell class=form.photovoltaic_panel_3_cell|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovoltaic_panel_3_cell.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第3面設置方式 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_3_setup.label_tag }}
+                    {% for error in form.photovol_panel_3_setup.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_3_setup class=form.photovol_panel_3_setup|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_3_setup.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第3面方位角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_3_direction.label_tag }}
+                    {% for error in form.photovol_panel_3_direction.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_3_direction class=form.photovol_panel_3_direction|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_3_direction.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第3面傾斜角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_3_angle.label_tag }}
+                    {% for error in form.photovol_panel_3_angle.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_3_angle class=form.photovol_panel_3_angle|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_3_angle.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" id="id_card_Panel4" style="display:none;">
+            <div class="card-header">太陽光パネル第4面</div>
+            <div class="card-body">
+
+                {# 第4面容量 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_4_capacity.label_tag }}
+                    {% for error in form.photovol_panel_4_capacity.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_4_capacity class=form.photovol_panel_4_capacity|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_4_capacity.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第4面アレイ種類 #}
+                <div class="form-group">
+                    {{ form.photovoltaic_panel_4_cell.label_tag }}
+                    {% for error in form.photovoltaic_panel_4_cell.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovoltaic_panel_4_cell class=form.photovoltaic_panel_4_cell|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovoltaic_panel_4_cell.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第4面設置方式 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_4_setup.label_tag }}
+                    {% for error in form.photovol_panel_4_setup.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_4_setup class=form.photovol_panel_4_setup|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_4_setup.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第4面方位角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_4_direction.label_tag }}
+                    {% for error in form.photovol_panel_4_direction.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_4_direction class=form.photovol_panel_4_direction|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_4_direction.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 第4面傾斜角 #}
+                <div class="form-group">
+                    {{ form.photovol_panel_4_angle.label_tag }}
+                    {% for error in form.photovol_panel_4_angle.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.photovol_panel_4_angle class=form.photovol_panel_4_angle|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.photovol_panel_4_angle.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

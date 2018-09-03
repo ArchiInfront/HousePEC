@@ -1,0 +1,32 @@
+﻿{% extends 'base_accounts.html' %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">ログイン</h3>
+            <p>ユーザー名とパスワードを入力して、「ログイン」をクリックして下さい。</p>
+          <form method="post" novalidate>
+            {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}">
+            {% include 'includes/form.html' %}
+            <button type="submit" class="btn btn-primary btn-block">ログイン</button>
+          </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+          <a href="{% url 'signup' %}">ユーザー登録はお済みですか？</a>
+        </div>
+      </div>
+      <div class="text-center py-2">
+        <small>
+          <a href="#" class="text-muted">パスワードをお忘れですか？</a>
+        </small>
+      </div>
+        <div class="text-center">
+            <a href="{% url 'home' %}">ホームに戻る</a>
+        </div>
+    
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,163 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+  {{ house.builder.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">一次エネルギー消費量計算</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'house_list' house.builder.pk %}">{{ house.builder.name }}</a></li>
+  {#<li class="breadcrumb-item"><a href="{% url 'spec_list' house.builder.pk house.pk %}">{{ house.name }}</a></li>#}
+  <li class="breadcrumb-item active">登録住宅の削除</li>
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'house_list' house.builder.pk %}">住宅リスト一覧に戻る</a>
+</p>
+
+<p class="text-danger">
+    住宅「{{ house.name }}」は、以下の内容で登録されています。<br />
+    この住宅を削除するには、ページ下部の「削除」をクリックして下さい。<br />
+    この住宅を削除すると、付随して登録されている性能・設備仕様も同時に削除されるので、ご注意ください。
+</p>
+
+    <div class="card mb-2">
+        <div class="card-header">
+            住宅「{{ house.name }}」の登録内容
+        </div>
+      <div class="card-body">
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>UA値[W/m2・K]</th>
+                    <th colspan="2">ηH値[-]</th>
+                    <th>外皮面積[m2]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ house.ua_value }}</td>
+                    <td>暖房期：{{ house.winter_ha_value }}</td>
+                    <td>冷房期：{{ house.summer_ha_value }}</td>
+                    <td>{{ house.total_envelope_area }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="3">床面積[m2]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>延床：{{ house.total_area }}</td>
+                    <td>主居室：{{ house.ldk_area }}</td>
+                    <td>他居室：{{ house.oth_area }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>建設地域</th>
+                    <th>日射区分</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ house.get_region_display }}</td>
+                    <td>{{ house.get_annual_solar_level_display }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>住宅の登録日時</th>
+                    <th>住宅の更新日時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ house.create_date }}</td>
+                    <td>{{ house.update_date }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>設備仕様登録数</th>
+                    <th>設備仕様の最終更新日時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ house.get_registered_specs }}</td>
+                    <td>{{ house.get_last_updated.update_date }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card mb-2">
+            <div class="card-header">
+                詳細設定項目
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>蓄熱利用</th>
+                            <th>床下経由換気</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ house.get_heat_storage_display }}</td>
+                            {% if house.under_floor_ventilation == 'AlwaysOn' %}
+                                <td>{{ house.get_under_floor_ventilation_display }}（面積割合：{{ house.under_floor_ventilation_area_rate }}%）</td>
+                            {% else %}
+                                <td>{{ house.get_under_floor_ventilation_display }}</td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="2">通風利用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>主居室：{{ house.get_ldk_natural_wind_display }}</td>
+                            <td>他居室：{{ house.get_oth_natural_wind_display }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+      </div>
+    </div>
+
+<p class="text-danger">この操作は取り消すことができません。内容を確認してから「削除」をクリックしてください。</p>
+
+  <form method="post">
+    {% csrf_token %}
+      {% include 'includes/form.html' %}
+      
+    <button type="submit" class="btn btn-danger">削除</button>
+  </form>
+
+{% endblock %}
+

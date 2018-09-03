@@ -1,0 +1,126 @@
+﻿{% load form_tags widget_tweaks %}
+
+<div class="card mb-2">
+    <div class="card-header">住宅の照明設備</div>
+    <div class="card-body">
+
+        <div class="card mb-2" >
+            <div class="card-header">主居室の照明</div>
+            <div class="card-body">
+
+                {# 主居室の照明 #}
+                <div class="form-group">
+                    {% for error in form.ldk_lighting.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ldk_lighting class=form.ldk_lighting|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.ldk_lighting.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 多灯分散照明 #}
+                <div class="form-group" id="id_form_ldk_multi" style="display:block">
+                    {{ form.ldk_multi.label_tag }}
+                    {% for error in form.ldk_multi.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ldk_multi class=form.ldk_multi|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.ldk_multi.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 調光：主居室 #}
+                <div class="form-group" id="id_form_ldk_dimming" style="display:block">
+                    {{ form.ldk_dimming.label_tag }}
+                    {% for error in form.ldk_dimming.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.ldk_dimming class=form.ldk_dimming|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.ldk_dimming.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" >
+            <div class="card-header">他居室の照明</div>
+            <div class="card-body">
+
+                {# 他居室の照明 #}
+                <div class="form-group">
+                    {% for error in form.oth_lighting.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.oth_lighting class=form.oth_lighting|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.oth_lighting.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 調光：他居室 #}
+                <div class="form-group" id="id_form_oth_dimming" style="display:block">
+                    {{ form.oth_dimming.label_tag }}
+                    {% for error in form.oth_dimming.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.oth_dimming class=form.oth_dimming|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.oth_dimming.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-2" >
+            <div class="card-header">非居室の照明</div>
+            <div class="card-body">
+
+                {# 非居室の照明 #}
+                <div class="form-group">
+                    {% for error in form.nonldk_lighting.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.nonldk_lighting class=form.nonldk_lighting|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.nonldk_lighting.help_text|safe }}
+                    </small>
+                </div>
+
+                {# 人感センサー #}
+                <div class="form-group" id="id_form_nonldk_sensor" style="display:block">
+                    {{ form.nonldk_sensor.label_tag }}
+                    {% for error in form.nonldk_sensor.errors %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field form.nonldk_sensor class=form.nonldk_sensor|input_class %}
+                    <small class="form-text text-muted">
+                    {{ form.nonldk_sensor.help_text|safe }}
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

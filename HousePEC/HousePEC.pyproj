@@ -1,0 +1,188 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Name>HousePEC</Name>
+    <RootNamespace>HousePEC</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f5c325cd-99ee-40fb-8ec8-1158a9ccbce2</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <DjangoSettingsModule>HousePEC.settings</DjangoSettingsModule>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="accounts\admin.py" />
+    <Compile Include="accounts\apps.py" />
+    <Compile Include="accounts\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="accounts\migrations\__init__.py" />
+    <Compile Include="accounts\models.py" />
+    <Compile Include="accounts\tests.py" />
+    <Compile Include="accounts\views.py" />
+    <Compile Include="accounts\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="HousePEC\__init__.py" />
+    <Compile Include="HousePEC\settings.py" />
+    <Compile Include="HousePEC\urls.py" />
+    <Compile Include="HousePEC\wsgi.py" />
+    <Compile Include="pecbyapi\admin.py" />
+    <Compile Include="pecbyapi\apps.py" />
+    <Compile Include="pecbyapi\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pecbyapi\migrations\__init__.py" />
+    <Compile Include="pecbyapi\models.py" />
+    <Compile Include="pecbyapi\templatetags\form_tags.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pecbyapi\templatetags\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pecbyapi\tests.py" />
+    <Compile Include="pecbyapi\views.py" />
+    <Compile Include="pecbyapi\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="archiinnextdemo - Web Deploy.pubxml" />
+    <Content Include="requirements.txt" />
+    <Content Include="static\css\bootstrap.min.css" />
+    <Content Include="static\js\bootstrap.min.js" />
+    <Content Include="static\js\form_new_cogene.js" />
+    <Content Include="static\js\form_new_cooling.js" />
+    <Content Include="static\js\form_new_hotwater_heating_source.js" />
+    <Content Include="static\js\form_new_ldk_heating.js" />
+    <Content Include="static\js\form_new_lighting.js" />
+    <Content Include="static\js\form_new_oth_heating.js" />
+    <Content Include="static\js\form_new_photovoltaic.js" />
+    <Content Include="static\js\form_new_solar_hotwater.js" />
+    <Content Include="static\js\form_new_ventilation.js" />
+    <Content Include="static\js\form_new_water_heater.js" />
+    <Content Include="static\js\form_update_ventilation.js" />
+    <Content Include="static\js\form_update_water_heater.js" />
+    <Content Include="static\js\jquery-3.2.1.min.js" />
+    <Content Include="static\js\popper.min.js" />
+    <Content Include="templates\base.html" />
+    <Content Include="templates\base_accounts.html" />
+    <Content Include="templates\spec_calc.html" />
+    <Content Include="templates\home.html" />
+    <Content Include="templates\house_confirm_delete.html" />
+    <Content Include="templates\house_copy.html" />
+    <Content Include="templates\house_list_detail.html" />
+    <Content Include="templates\house_update.html" />
+    <Content Include="templates\house_update_detail.html" />
+    <Content Include="templates\house_list.html" />
+    <Content Include="templates\house_new.html" />
+    <Content Include="templates\house_new_detail.html" />
+    <Content Include="templates\includes\form.html" />
+    <Content Include="templates\includes\form_detail_new.html" />
+    <Content Include="templates\includes\form_new_cogene.html" />
+    <Content Include="templates\includes\form_new_cooling.html" />
+    <Content Include="templates\includes\form_new_heating.html" />
+    <Content Include="templates\includes\form_new_hotwater.html" />
+    <Content Include="templates\includes\form_new_lighting.html" />
+    <Content Include="templates\includes\form_new_photovoltaic.html" />
+    <Content Include="templates\includes\form_new_solar_hotwater.html" />
+    <Content Include="templates\includes\form_new_spec.html" />
+    <Content Include="templates\includes\form_new_ventilation.html" />
+    <Content Include="templates\login.html" />
+    <Content Include="templates\password_change.html" />
+    <Content Include="templates\password_change_done.html" />
+    <Content Include="templates\password_reset.html" />
+    <Content Include="templates\password_reset_complete.html" />
+    <Content Include="templates\password_reset_confirm.html" />
+    <Content Include="templates\password_reset_done.html" />
+    <Content Include="templates\password_reset_email.html" />
+    <Content Include="templates\password_reset_subject.txt" />
+    <Content Include="templates\signup.html" />
+    <Content Include="templates\spec_confirm_delete.html" />
+    <Content Include="templates\spec_copy.html" />
+    <Content Include="templates\spec_update.html" />
+    <Content Include="templates\spec_list.html" />
+    <Content Include="templates\spec_new.html" />
+    <Content Include="templates\spec_calc_test.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="accounts\" />
+    <Folder Include="accounts\migrations\" />
+    <Folder Include="HousePEC\" />
+    <Folder Include="pecbyapi\" />
+    <Folder Include="pecbyapi\migrations\" />
+    <Folder Include="pecbyapi\templatetags\" />
+    <Folder Include="static\" />
+    <Folder Include="static\css\" />
+    <Folder Include="static\js\" />
+    <Folder Include="templates\" />
+    <Folder Include="templates\includes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.6</Version>
+      <Description>env (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
