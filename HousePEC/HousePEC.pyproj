@@ -63,7 +63,9 @@
     <Compile Include="pecbyapi\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="web.config" />
     <None Include="archiinnextdemo - Web Deploy.pubxml" />
+    <None Include="housepec - Web Deploy.pubxml" />
     <Content Include="requirements.txt" />
     <Content Include="static\css\bootstrap.min.css" />
     <Content Include="static\js\bootstrap.min.js" />
