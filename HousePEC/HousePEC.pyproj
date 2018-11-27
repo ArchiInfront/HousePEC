@@ -63,6 +63,8 @@
     <Compile Include="pecbyapi\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="housespec - Web Deploy.pubxml" />
+    <Content Include="web.config" />
     <None Include="archiinnextdemo - Web Deploy.pubxml" />
     <None Include="housepec - Web Deploy.pubxml" />
     <None Include="housepec3 - Web Deploy.pubxml" />
