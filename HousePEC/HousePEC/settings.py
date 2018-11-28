@@ -26,8 +26,8 @@ SECRET_KEY = '3f99deed-6358-45e0-8a17-ef132791c4c3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-#ALLOWED_HOSTS = ['housespec.azurewebsites.net']
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['housespec.azurewebsites.net']
 
 
 # Application definition
