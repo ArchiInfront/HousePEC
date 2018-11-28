@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="housespec - Web Deploy.pubxml" />
+    <Content Include="static\web.config" />
     <Content Include="web.config" />
     <None Include="archiinnextdemo - Web Deploy.pubxml" />
     <None Include="housepec - Web Deploy.pubxml" />
